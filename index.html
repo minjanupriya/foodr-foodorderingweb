@@ -281,12 +281,19 @@
                   >
                     Clear Cart
                   </button>
-                  <a class="btn btn-primary" onclick="openWhatsapp()">
+                  <a class="btn btn-primary" onclick="redirectToGooglePay()">
                     Order Now
                   </a>
                 </div>
               </div>
             </div>
+            <script>
+              function redirectToGooglePay() {
+              // Replace the URL below with the actual Google Pay payment URL
+              var googlePayUrl = "https://example.com/gpay_payment_page";
+              window.location.href = googlePayUrl;
+              }
+            </script>
           </div>
 
           <div id="momos">
