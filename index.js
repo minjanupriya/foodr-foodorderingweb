@@ -117,6 +117,9 @@ $(document).ready(function () {
       );
     }
   });
+  let foodNameClicked1 = "";
+  let count1="";
+  let singleFoodAmount1="";
 
   $(".menuBtn").click(function () {
     let quantity = $(this).siblings(".quantity");
@@ -144,6 +147,10 @@ $(document).ready(function () {
     if ($(this)[0].className.search("plus") > -1) {
       count = count + 1;
       quantity.text(count);
+      foodNameClicked1=foodNameClicked;
+      count1=count
+      singleFoodAmount1=singleFoodAmount;
+      
       ToCart(foodNameClicked, count, isVeg, singleFoodAmount);
     } else if ($(this)[0].className.search("minus") > -1) {
       if (count <= 0) {
@@ -155,6 +162,12 @@ $(document).ready(function () {
       }
     }
   });
+  
+      function redirectToGooglePay(foodNameClicked1, foodQuantity, singleFoodAmount){
+    console.log("food-name-clicked:",foodNameClicked)
+          console.log("food-quantity:",foodQuantity)
+      console.log("single-Food-Amount:",singleFoodAmount)
+    }
 
   function ToCart(foodNameClicked, foodQuantity, isVeg, singleFoodAmount) {
     let foodAlreadyThere = false;
@@ -174,6 +187,9 @@ $(document).ready(function () {
         foodAlreadyThere = false;
       }
     }
+    
+
+    
 
     if (foodAlreadyThere) {
       food.splice(foodPos, 1);
