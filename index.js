@@ -64,9 +64,9 @@ $(document).ready(function () {
   let count1="";
   let singleFoodAmount1="";
   
-  $(".orderNow").click(function(event){
+ $(".orderNow").on("click", function (event) {
 //       if (this.hash !== "") {
-      event.preventDefault();
+//       event.preventDefault();
       let hash = this.hash;
           console.log("food-name-clicked:",foodNameClicked)
           console.log("food-quantity:",foodQuantity)
