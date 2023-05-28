@@ -65,13 +65,13 @@ $(document).ready(function () {
   let singleFoodAmount1="";
   
   $(".orderNow").click(function(event){
-      if (this.hash !== "") {
+//       if (this.hash !== "") {
       event.preventDefault();
       let hash = this.hash;
           console.log("food-name-clicked:",foodNameClicked)
           console.log("food-quantity:",foodQuantity)
       console.log("single-Food-Amount:",singleFoodAmount)
-    }
+//     }
   })
 
   $(".homeBtn").click(function (event) {
