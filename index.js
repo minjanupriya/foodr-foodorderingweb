@@ -59,6 +59,20 @@ $(document).ready(function () {
       );
     } // End if
   });
+  
+    let foodNameClicked1 = "";
+  let count1="";
+  let singleFoodAmount1="";
+  
+  $(".orderNow").click(function(event){
+      if (this.hash !== "") {
+      event.preventDefault();
+      let hash = this.hash;
+          console.log("food-name-clicked:",foodNameClicked)
+          console.log("food-quantity:",foodQuantity)
+      console.log("single-Food-Amount:",singleFoodAmount)
+    }
+  })
 
   $(".homeBtn").click(function (event) {
     if (this.hash !== "") {
@@ -117,9 +131,7 @@ $(document).ready(function () {
       );
     }
   });
-  let foodNameClicked1 = "";
-  let count1="";
-  let singleFoodAmount1="";
+
 
   $(".menuBtn").click(function () {
     let quantity = $(this).siblings(".quantity");
@@ -164,9 +176,7 @@ $(document).ready(function () {
   });
   
       function redirectToGooglePay(foodNameClicked1, foodQuantity, singleFoodAmount){
-    console.log("food-name-clicked:",foodNameClicked)
-          console.log("food-quantity:",foodQuantity)
-      console.log("single-Food-Amount:",singleFoodAmount)
+
     }
 
   function ToCart(foodNameClicked, foodQuantity, isVeg, singleFoodAmount) {
