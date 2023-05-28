@@ -1,6 +1,6 @@
 let food = [];
 let totalAmount = 0;
-const url = window.location.href;
+const url = new URL(window.location.href);
 const paramValue = url.searchParams.get('param');
 // const cleanValue = paramValue.split('?')[0];
 console.log('Parameter value:', paramValue);
