@@ -2,7 +2,8 @@ let food = [];
 let totalAmount = 0;
 const url = window.location.href;
 const paramValue = url.substring(url.lastIndexOf('/') + 1);
-console.log('Parameter value:', paramValue);
+const cleanValue = paramValue.split('?')[0];
+console.log('Parameter value:', cleanValue);
 
 $(document).ready(function () {
   if ($(document).width() <= 992) {
