@@ -3,7 +3,9 @@ let totalAmount = 0;
 const url = new URL(window.location.href);
 const paramValue = url.searchParams.get('param');
 // const cleanValue = paramValue.split('?')[0];
-console.log('Parameter value:', paramValue);
+// console.log('Parameter value:', paramValue);
+const value = paramValue.substring(paramValue.indexOf('=') + 1);
+console.log('Extracted value:', value);
 
 $(document).ready(function () {
   if ($(document).width() <= 992) {
