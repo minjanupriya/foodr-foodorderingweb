@@ -1,0 +1,12 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /adminDetails/{adminId} {
+      allow read: if true;  // Allow patients to read their own data
+      allow write: if request.auth.uid == adminId;  // Allow patients to write their own data
+    }
+    
+     match /menu/{menuId} {
+      allow read: if true;  // Allow patients to read their own data
+      allow write: if request.auth.uid == menuId;  // Allow patients to write their own data
+    }}}

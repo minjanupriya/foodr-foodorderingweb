@@ -49,6 +49,7 @@
       integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
       crossorigin="anonymous"
     />
+    
 
     <!-- CSS -->
     <link href="https://copyfonts.com/fonts/attari-salees.html" />
@@ -97,7 +98,7 @@
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link px-4" href="#categorySection">Categories</a>
+              <center><a class="nav-link px-4" href="#categorySection">Categories</a></center>
             </li>
             <li class="nav-item">
               <a class="nav-link px-4" href="#healthySection">Hygiene</a>
@@ -105,6 +106,10 @@
             <li class="nav-item">
               <a class="nav-link px-4" href="contactus.html">Contact Us</a>
             </li>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link px-4" href="menu_page.html">Menu_Page</a>
+          </li>
           </ul>
         </div>
         <span
@@ -281,7 +286,7 @@
                   >
                     Clear Cart
                   </button>
-                  <a class="btn btn-primary orderNow">
+                  <a class="btn btn-primary" onclick="redirectToGooglePay()">
                     Order Now
                   </a>
                 </div>
@@ -1516,7 +1521,7 @@
                               alt="veg-icon"
                             />
                           </span>
-                        </p>
+                        </p>+-
                         <p class="text-muted-small">
                           <i class="fas fa-rupee-sign"></i>150
                         </p>
@@ -2132,6 +2137,7 @@
             >
             |
             <!-- <a class="footer_clickable" href="tel:+919871198882">Contact Us</a> -->
+            <a class="footer_clickable" href="./menu_page.html">Categories</a>
             <a class="footer_clickable" href="./contactus.html">Contact Us</a>
           </p>
         </div>
@@ -2169,6 +2175,30 @@
     <!-- CUSTOM JS -->
     <script src="./index.js"></script>
   </body>
+
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyDwEgxrgaileQSnclPFOXFCghS4wJjBEQk",
+      authDomain: "food-ordering-app-3932e.firebaseapp.com",
+      projectId: "food-ordering-app-3932e",
+      storageBucket: "food-ordering-app-3932e.appspot.com",
+      messagingSenderId: "98716952915",
+      appId: "1:98716952915:web:891e4c4c8d4262199fd9a6",
+      measurementId: "G-SNZJVTEMJ7"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
 
   <!-- BOOTSTRAP JS -->
   <script

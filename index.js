@@ -1,11 +1,5 @@
 let food = [];
 let totalAmount = 0;
-const url = new URL(window.location.href);
-const paramValue = url.searchParams.get('param');
-// const cleanValue = paramValue.split('?')[0];
-// console.log('Parameter value:', paramValue);
-const value = paramValue.substring(paramValue.indexOf('=') + 1);
-console.log('Extracted value:', value);
 
 $(document).ready(function () {
   if ($(document).width() <= 992) {
@@ -59,20 +53,6 @@ $(document).ready(function () {
       );
     } // End if
   });
-  
-    let foodNameClicked1 = "";
-  let count1="";
-  let singleFoodAmount1="";
-  
- $(".orderNow").on("click", function (event) {
-//       if (this.hash !== "") {
-//       event.preventDefault();
-      let hash = this.hash;
-          console.log("food-name-clicked:",foodNameClicked)
-          console.log("food-quantity:",foodQuantity)
-      console.log("single-Food-Amount:",singleFoodAmount)
-//     }
-  })
 
   $(".homeBtn").click(function (event) {
     if (this.hash !== "") {
@@ -132,7 +112,6 @@ $(document).ready(function () {
     }
   });
 
-
   $(".menuBtn").click(function () {
     let quantity = $(this).siblings(".quantity");
     let foodNameClicked = quantity
@@ -159,10 +138,6 @@ $(document).ready(function () {
     if ($(this)[0].className.search("plus") > -1) {
       count = count + 1;
       quantity.text(count);
-      foodNameClicked1=foodNameClicked;
-      count1=count
-      singleFoodAmount1=singleFoodAmount;
-      
       ToCart(foodNameClicked, count, isVeg, singleFoodAmount);
     } else if ($(this)[0].className.search("minus") > -1) {
       if (count <= 0) {
@@ -174,10 +149,6 @@ $(document).ready(function () {
       }
     }
   });
-  
-      function redirectToGooglePay(foodNameClicked1, foodQuantity, singleFoodAmount){
-
-    }
 
   function ToCart(foodNameClicked, foodQuantity, isVeg, singleFoodAmount) {
     let foodAlreadyThere = false;
@@ -197,9 +168,6 @@ $(document).ready(function () {
         foodAlreadyThere = false;
       }
     }
-    
-
-    
 
     if (foodAlreadyThere) {
       food.splice(foodPos, 1);
@@ -261,41 +229,191 @@ $(document).ready(function () {
   }
 });
 
-function openWhatsapp() {
+//function openWhatsapp() {
   // console.log($('#address'));
 
-  if ($("#address")[0].value === "") {
-    alert("Please Enter Address");
+  // if ($("#address")[0].value === "") {
+  //   alert("Please Enter Address");
+  //   return;
+  // } else {
+  //   let total = 0;
+  //   let address = $("#address")[0].value;
+  //   let note = $("#note")[0].value;
+  //   let wTxt = "*name*               *quantity* \n";
+
+  //   for (var i = 0; i < food.length; i++) {
+  //     let name = food[i][0];
+  //     let quantity = food[i][1];
+  //     total = total + food[i][1] * food[i][2];
+  //     wTxt = wTxt + name + "      " + quantity + "  \n";
+  //   }
+
+  //   if ($("#note")[0].value === "") {
+  //     wTxt =
+  //       wTxt + "\n *Total Bill: " + total + "*" + "\n\n Address: " + address;
+  //   } else {
+  //     wTxt =
+  //       wTxt +
+  //       "\n *Total Bill: " +
+  //       total +
+  //       "*" +
+  //       "\n\n Address: " +
+  //       address +
+  //       "\n Note: " +
+  //       note;
+  //   }
+
+  //   let wTxtEncoded = encodeURI(wTxt);
+  //   window.open("https://wa.me/917428789065?text=" + wTxtEncoded);
+  // }
+  // function makePayment() {
+  //   // Perform necessary actions to initiate the payment using Google Pay or PhonePe
+  //   // For example, you can show a payment dialog or redirect the user to a payment gateway
+  
+  //   // Example Google Pay integration code
+  //   // Replace with your own implementation
+  //   const paymentAmount = totalAmount; // Get the total amount to be paid
+  //   const currency = 'USD'; // Set the currency for the payment
+  
+  //   // Create a payment request using the Payment Request API
+  //   const paymentRequest = new PaymentRequest(
+  //     [
+  //       {
+  //         supportedMethods: 'https://your-payment-gateway.com/pay',
+  //         data: {
+  //           environment: 'TEST',
+  //           apiVersion: 2,
+  //           allowedPaymentMethods: ['TOKENIZED_CARD'],
+  //           paymentMethodTokenizationParameters: {
+  //             tokenizationType: 'PAYMENT_GATEWAY',
+  //             parameters: {
+  //               gateway: 'your_payment_gateway',
+  //               gatewayMerchantId: 'your_merchant_id',
+  //             },
+  //           },
+  //           cardRequirements: {
+  //             allowedCardNetworks: ['VISA', 'MASTERCARD'],
+  //           },
+  //         },
+  //       },
+  //     ],
+  //     {
+  //       total: {
+  //         label: 'Total Amount',
+  //         amount: {
+  //           currency: currency,
+  //           value: paymentAmount.toFixed(2), // Format the amount with 2 decimal places
+  //         },
+  //       },
+  //     }
+  //   );
+  
+  //   // Show the payment dialog to the user
+  //   paymentRequest.show()
+  //     .then(function(paymentResponse) {
+  //       // Process the payment response and handle the success or failure
+  //       console.log(paymentResponse);
+  //     })
+  //     .catch(function(error) {
+  //       // Handle errors that occur during the payment process
+  //       console.error('Payment error:', error);
+  //     });
+//}
+
+
+/** Launches payment request flow when user taps on buy button. */
+function onOrderNow() {
+  if (!window.PaymentRequest) {
+    console.log('Web payments are not supported in this browser.');
     return;
-  } else {
-    let total = 0;
-    let address = $("#address")[0].value;
-    let note = $("#note")[0].value;
-    let wTxt = "*name*               *quantity* \n";
-
-    for (var i = 0; i < food.length; i++) {
-      let name = food[i][0];
-      let quantity = food[i][1];
-      total = total + food[i][1] * food[i][2];
-      wTxt = wTxt + name + "      " + quantity + "  \n";
-    }
-
-    if ($("#note")[0].value === "") {
-      wTxt =
-        wTxt + "\n *Total Bill: " + total + "*" + "\n\n Address: " + address;
-    } else {
-      wTxt =
-        wTxt +
-        "\n *Total Bill: " +
-        total +
-        "*" +
-        "\n\n Address: " +
-        address +
-        "\n Note: " +
-        note;
-    }
-
-    let wTxtEncoded = encodeURI(wTxt);
-    window.open("https://wa.me/917428789065?text=" + wTxtEncoded);
   }
+
+  // Create supported payment method.
+  const supportedInstruments = [
+    {
+      supportedMethods: ['https://tez.google.com/pay'],
+      data: {
+        pa: 'merchant-vpa@xxx',
+        pn: 'Merchant Name',
+        tr: '1234ABCD',  // Your custom transaction reference ID
+        url: 'https://url/of/the/order/in/your/website',
+        mc: '1234', //Your merchant category code
+        tn: 'Purchase in Merchant',
+      },
+    }
+  ];
+
+  // Create order detail data.
+  const details = {
+    total: {
+      label: 'Total',
+      amount: {
+        currency: 'INR',
+        value: '10.01', // sample amount
+      },
+    },
+    displayItems: [{
+      label: 'Original Amount',
+      amount: {
+        currency: 'INR',
+        value: '10.01',
+      },
+    }],
+  };
+
+  // Create payment request object.
+  let request = null;
+  try {
+    request = new PaymentRequest(supportedInstruments, details);
+  } catch (e) {
+    console.log('Payment Request Error: ' + e.message);
+    return;
+  }
+  if (!request) {
+    console.log('Web payments are not supported in this browser.');
+    return;
+  }
+
+  var canMakePaymentPromise = checkCanMakePayment(request);
+  canMakePaymentPromise
+    .then((result) => {
+      showPaymentUI(request, result);
+    })
+    .catch((err) => {
+      console.log('Error calling checkCanMakePayment: ' + err);
+    });
 }
+
+// Show the payment request UI.
+function showPaymentUI(request, canMakePayment) {
+  if (!canMakePayment) {
+    handleNotReadyToPay();
+    return;
+  }
+
+  // Set payment timeout.
+  let paymentTimeout = window.setTimeout(function() {
+    window.clearTimeout(paymentTimeout);
+    request.abort()
+      .then(function() {
+        console.log('Payment timed out after 20 minutes.');
+      })
+      .catch(function() {
+        console.log('Unable to abort, user is in the process of paying.');
+      });
+  }, 20 * 60 * 1000); /* 20 minutes */
+
+  request.show()
+    .then(function(instrument) {
+      window.clearTimeout(paymentTimeout);
+      processResponse(instrument); // Handle response from browser.
+    })
+    .catch(function(err) {
+      console.log(err);
+    });
+}
+
+// Attach the onOrderNow function to the "Order Now" button click event
+$(".orderNowBtn").click(function () {
+  onOrderNow();
+});
