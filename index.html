@@ -151,52 +151,33 @@
         </div>
       </div>
 
-        <!-- MENU STARTS HERE -->
-        <div class="menuDiv">
-          <!-- MODAL -->
-          <div
-            class="modal fade"
-            id="exampleModal"
-            tabindex="-1"
-            role="dialog"
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Cart</h5>
-                  <button
-                    type="button"
-                    class="close"
-                    data-dismiss="modal"
-                    aria-label="Close"
-                  >
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <div class="container-fluid">
-                    <div class="row paymentInfoRow">
-                      <div class="col paymentInfo">
-                        <span class="checkIcon"
-                          ><i class="fas fa-check-circle"></i
-                        ></span>
-                        Select Menu
-                      </div>
-                      <!-- <div class="col paymentInfo">
-                        <span class="checkIcon"
-                          ><i class="fa-brands fa-whatsapp"></i
-                        ></span>
-                        Place order via Whatsapp
-                      </div> -->
-                      <div class="col paymentInfo">
-                        <span class="checkIcon"
-                          ><i class="fa-brands fa-google-pay"></i>
-                        </span>
-                        Pay using Google Pay.
-                      </div>
+      <!-- MENU STARTS HERE -->
+      <div class="menuDiv">
+        <!-- MODAL -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cart</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="container-fluid">
+                  <div class="row paymentInfoRow">
+                    <div class="col paymentInfo">
+                      <span class="checkIcon"><i class="fas fa-check-circle"></i></span>
+                      Select Menu
                     </div>
+
+                    <div class="col paymentInfo">
+                      <span class="checkIcon"><i class="fa-brands fa-google-pay"></i>
+                      </span>
+                      Pay using Google Pay.
+                    </div>
+                  </div>
 
                   <hr class="cartHr" />
 
@@ -213,40 +194,100 @@
                           id="address"
                         ></textarea>
                       </div> -->
-                      <div class="mb-3 px-2">
-                        <label for="note">Note (optional)</label> <br />
-                        <textarea
-                          type="text"
-                          class="form-control"
-                          id="note"
-                        ></textarea>
-                      </div>
+                    <div class="mb-3 px-2">
+                      <label for="note">Note (optional)</label> <br />
+                      <textarea type="text" class="form-control" id="note"></textarea>
                     </div>
                   </div>
                 </div>
-                <div class="modal-footer">
-                  <div class="totalAmountDiv"></div>
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    onclick="location.reload()"
-                  >
-                    Clear Cart
-                  </button>
-                  <a class="btn btn-primary" onclick="redirectToGooglePay()">
-                    Order Now
-                  </a>
-                </div>
+              </div>
+              <div class="modal-footer">
+                <div class="totalAmountDiv"></div>
+                <button type="button" class="btn btn-secondary" onclick="location.reload()">
+                  Clear Cart
+                </button>
+                <button type="button" class="btn btn-secondary" id="rzp-button1">
+                  Order Now
+                </button>
+                <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+                <script>
+                  var options = {
+                    "key": "rzp_test_gtKHCLHsKCtbg3", // Enter the Key ID generated from the Dashboard
+                    "amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                    "currency": "INR",
+                    "name": "FoodR", //your business name
+                    "description": "Test Transaction",
+                    "image": "https://example.com/your_logo",
+                    "order_id": "order_Lz8zHctCvuQt89", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                    "handler": function (response) {
+                      alert(response.razorpay_payment_id);
+                      alert(response.razorpay_order_id);
+                      alert(response.razorpay_signature)
+                    },
+                    "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
+                      "name": "Snomy Thomas", //your customer's name
+                      "email": "snomythomas@gmail.com",
+                      "contact": "8618286191"  //Provide the customer's phone number for better conversion rates 
+                    },
+                    "notes": {
+                      "address": "Razorpay Corporate Office"
+                    },
+                    "theme": {
+                      "color": "#3399cc"
+                    }
+                  };
+                  var rzp1 = new Razorpay(options);
+                  rzp1.on('payment.failed', function (response) {
+                    alert(response.error.code);
+                    alert(response.error.description);
+                    alert(response.error.source);
+                    alert(response.error.step);
+                    alert(response.error.reason);
+                    alert(response.error.metadata.order_id);
+                    alert(response.error.metadata.payment_id);
+                  });
+                  document.getElementById('rzp-button1').onclick = function (e) {
+                    rzp1.open();
+                    e.preventDefault();
+                  }
+
+                </script>
+
+                <!-- function processPayment() {
+
+                        // Perform necessary payment processing logic here
+                        // This may include sending payment data to RogerPay's API
+                        // and handling the response
+                
+                        // For example:
+                        // 1. Collect payment information from the user
+                        // const cardholderName = document.getElementById('cardholderName').value;
+                        // const cardNumber = document.getElementById('cardNumber').value;
+                        // const expirationDate = document.getElementById('expirationDate').value;
+                        // const cvv = document.getElementById('cvv').value;
+                
+                        // 2. Send payment data to RogerPay's API using appropriate API calls
+                        // You'll need to refer to RogerPay's documentation for the specific API methods
+                
+                        // 3. Handle the API response and provide feedback to the user
+                
+                        // Redirect to the checkout page after processing the payment
+                        window.location.href = "checkout.html";
+                    }
+                </script> -->
+
               </div>
             </div>
-            <script>
+          </div>
+          <!-- <script>
               function redirectToGooglePay() {
               // Replace the URL below with the actual Google Pay payment URL
               var googlePayUrl = "https://example.com/gpay_payment_page";
               window.location.href = googlePayUrl;
               }
-            </script>
-          </div>
+            </script> -->
+        </div>
 
 
 
@@ -1091,7 +1132,7 @@
                           ><i class="fas fa-plus"></i
                         ></span>
                       </div>
-                    </div> -->
+                    </div>
                   </div>
                 </div>
               </div>
@@ -2127,18 +2168,16 @@
         </div>
       </div>
 
-        <div class="row contactRow">
-          <p>
-            <a class="footer_clickable" href="./policy.html">Policies</a> |
-            <a class="footer_clickable" href="./terms_of_service.html"
-              >Terms of Service</a
-            >
-            |
-            <!-- <a class="footer_clickable" href="tel:+919871198882">Contact Us</a> -->
-            <a class="footer_clickable" href="./menu_page.html">Categories</a>
-            <a class="footer_clickable" href="./contactus.html">Contact Us</a>
-          </p>
-        </div>
+      <div class="row contactRow">
+        <p>
+          <a class="footer_clickable" href="./policy.html">Policies</a> |
+          <a class="footer_clickable" href="./terms_of_service.html">Terms of Service</a>
+          |
+          <!-- <a class="footer_clickable" href="tel:+919871198882">Contact Us</a> -->
+          <!-- <a class="footer_clickable" href="./menu_page.html">Categories</a> -->
+          <a class="footer_clickable" href="./contactus.html">Contact Us</a>
+        </p>
+      </div>
 
       <div class="row copyrightRow">
         <p class="copyright">&copy; Copyright Foodr All rights reserved.</p>
