@@ -511,77 +511,65 @@
 
           // Function to create HTML elements for each menu item
           const createMenuItemElement = (menuItem) => {
-            const foodItem = document.createElement('div');
-            foodItem.classList.add('row', 'foodItem');
+  const foodItem = document.createElement('div');
+  foodItem.classList.add('row', 'foodItem');
 
-            const foodItemName = document.createElement('div');
-            foodItemName.classList.add('col-9', 'foodItemName');
+  const foodItemName = document.createElement('div');
+  foodItemName.classList.add('col-9', 'foodItemName');
 
-            const itemName = document.createElement('p');
-            itemName.textContent = menuItem.Name;
+  const itemName = document.createElement('p');
+  itemName.textContent = menuItem.Name;
 
-            const vegIcon = document.createElement('span');
-            vegIcon.innerHTML = `<img class="vegIcon" src="./images/veg.webp" alt="veg-icon" />`;
+  const vegIcon = document.createElement('span');
+  vegIcon.innerHTML = `<img class="vegIcon" src="./images/veg.webp" alt="veg-icon" />`;
 
-            foodItemName.appendChild(itemName);
-            foodItemName.appendChild(vegIcon);
+  foodItemName.appendChild(itemName);
+  foodItemName.appendChild(vegIcon);
 
-            const price = document.createElement('p');
-            price.classList.add('text-muted-small');
-            price.innerHTML = `<i class="fas fa-rupee-sign"></i>${menuItem.Price}`;
+  const price = document.createElement('p');
+  price.classList.add('text-muted-small');
+  price.innerHTML = `<i class="fas fa-rupee-sign"></i>${menuItem.Price}`;
 
-            foodItemName.appendChild(price);
+  foodItemName.appendChild(price);
 
-            const addCol = document.createElement('div');
-addCol.classList.add('col-3', 'addCol');
+  const addCol = document.createElement('div');
+  addCol.classList.add('col-3', 'addCol');
 
-const minusBtn = document.createElement('span');
-minusBtn.classList.add('menuBtn', 'minus');
-minusBtn.innerHTML = `<i class="fas fa-minus"></i>`;
-minusBtn.onclick = () => {
-  // Add your desired functionality or action here
-  // For example, you can decrement the quantity or perform any other logic
-  let currentQuantity = parseInt(quantity.textContent);
-  if (currentQuantity > 0) {
-    quantity.textContent = currentQuantity - 1;
-  }
+  const minusBtn = document.createElement('span');
+  minusBtn.classList.add('menuBtn', 'minus');
+  minusBtn.innerHTML = `<i class="fas fa-minus"></i>`;
+  minusBtn.onclick = () => {
+    // Add your desired functionality or action here
+    // For example, you can decrement the quantity or perform any other logic
+    let currentQuantity = parseInt(quantity.textContent);
+    if (currentQuantity > 0) {
+      quantity.textContent = currentQuantity - 1;
+    }
+  };
+
+  const quantity = document.createElement('span');
+  quantity.classList.add('quantity');
+  quantity.textContent = '0';
+
+  const plusBtn = document.createElement('span');
+  plusBtn.classList.add('menuBtn', 'plus');
+  plusBtn.innerHTML = `<i class="fas fa-plus"></i>`;
+  plusBtn.onclick = () => {
+    // Add your desired functionality or action here
+    // For example, you can increment the quantity or perform any other logic
+    quantity.textContent = parseInt(quantity.textContent) + 1;
+  };
+
+  addCol.appendChild(minusBtn);
+  addCol.appendChild(quantity);
+  addCol.appendChild(plusBtn);
+
+  foodItem.appendChild(foodItemName);
+  foodItem.appendChild(addCol);
+
+  return foodItem;
 };
 
-const quantity = document.createElement('span');
-quantity.classList.add('quantity');
-quantity.textContent = '0';
-
-const plusBtn = document.createElement('span');
-plusBtn.classList.add('menuBtn', 'plus');
-plusBtn.innerHTML = `<i class="fas fa-plus"></i>`;
-plusBtn.onclick = () => {
-  // Add your desired functionality or action here
-  // For example, you can increment the quantity or perform any other logic
-  quantity.textContent = parseInt(quantity.textContent) + 1;
-};
-
-const additionalDiv = document.createElement('div');
-additionalDiv.classList.add('col-3', 'addCol');
-additionalDiv.innerHTML = `
-  <span class="menuBtn minus">
-    <i class="fas fa-minus"></i>
-  </span>
-  <span class="quantity">0</span>
-  <span class="menuBtn plus">
-    <i class="fas fa-plus"></i>
-  </span>
-`;
-
-addCol.appendChild(minusBtn);
-addCol.appendChild(quantity);
-addCol.appendChild(plusBtn);
-
-foodItem.appendChild(foodItemName);
-foodItem.appendChild(additionalDiv);
-
-return foodItem;
-
-          };
           const renderSteamedMomos = (menuItems) => {
             const steamedMomo = document.getElementById('steamedMomo');
 
