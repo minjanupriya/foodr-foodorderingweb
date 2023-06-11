@@ -107,9 +107,9 @@
               <a class="nav-link px-4" href="contactus.html">Contact Us</a>
             </li>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link px-4" href="menu_page.html">Menu_Page</a>
-          </li>
+          </li> -->
           </ul>
         </div>
         <span
@@ -237,12 +237,7 @@
                         ></span>
                         Select Menu
                       </div>
-                      <!-- <div class="col paymentInfo">
-                        <span class="checkIcon"
-                          ><i class="fa-brands fa-whatsapp"></i
-                        ></span>
-                        Place order via Whatsapp
-                      </div> -->
+                  
                       <div class="col paymentInfo">
                         <span class="checkIcon"
                           ><i class="fa-brands fa-google-pay"></i>
@@ -286,19 +281,43 @@
                   >
                     Clear Cart
                   </button>
-                  <a class="btn btn-primary" onclick="redirectToGooglePay()">
+                  <button type="button" class="btn btn-secondary" onclick="processPayment()">
                     Order Now
-                  </a>
+                </button>
+                
+                <script>
+                    function processPayment() {
+                        // Perform necessary payment processing logic here
+                        // This may include sending payment data to RogerPay's API
+                        // and handling the response
+                
+                        // For example:
+                        // 1. Collect payment information from the user
+                        // const cardholderName = document.getElementById('cardholderName').value;
+                        // const cardNumber = document.getElementById('cardNumber').value;
+                        // const expirationDate = document.getElementById('expirationDate').value;
+                        // const cvv = document.getElementById('cvv').value;
+                
+                        // 2. Send payment data to RogerPay's API using appropriate API calls
+                        // You'll need to refer to RogerPay's documentation for the specific API methods
+                
+                        // 3. Handle the API response and provide feedback to the user
+                
+                        // Redirect to the checkout page after processing the payment
+                        window.location.href = "checkout.html";
+                    }
+                </script>
+                
                 </div>
               </div>
             </div>
-            <script>
+            <!-- <script>
               function redirectToGooglePay() {
               // Replace the URL below with the actual Google Pay payment URL
               var googlePayUrl = "https://example.com/gpay_payment_page";
               window.location.href = googlePayUrl;
               }
-            </script>
+            </script> -->
           </div>
 
           <div id="momos">
@@ -738,7 +757,7 @@
                     </div>
                     <hr class="foodItemHr" />
 
-                    <div class="row foodItem">
+                    <!-- <div class="row foodItem">
                       <div class="col-9 foodItemName">
                         <p>
                           Fish Fried Momo
@@ -763,7 +782,7 @@
                           ><i class="fas fa-plus"></i
                         ></span>
                       </div>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
               </div>
@@ -2137,7 +2156,7 @@
             >
             |
             <!-- <a class="footer_clickable" href="tel:+919871198882">Contact Us</a> -->
-            <a class="footer_clickable" href="./menu_page.html">Categories</a>
+            <!-- <a class="footer_clickable" href="./menu_page.html">Categories</a> -->
             <a class="footer_clickable" href="./contactus.html">Contact Us</a>
           </p>
         </div>
