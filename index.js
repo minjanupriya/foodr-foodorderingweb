@@ -1,4 +1,4 @@
-let food = [];
+// let food = [];
 let totalAmount = 0;
 
 $(document).ready(function () {
