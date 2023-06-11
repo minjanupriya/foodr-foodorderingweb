@@ -1,5 +1,5 @@
-// let food = [];
-// let totalAmount = 0;
+let food = [];
+let totalAmount = 0;
 
 $(document).ready(function () {
   if ($(document).width() <= 992) {
