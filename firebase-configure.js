@@ -4,7 +4,7 @@ import { getFirestore} from "https://www.gstatic.com/firebasejs/9.0.2/firebase-f
 const  firebaseConfig = {
     apiKey: "AIzaSyDwEgxrgaileQSnclPFOXFCghS4wJjBEQk",
     authDomain: "food-ordering-app-3932e.firebaseapp.com",
-    databaseURL: "http://food-ordering-app-3932e-default-rtdb.asia-southeast1.firebasedatabase.app",
+    databaseURL: "https://food-ordering-app-3932e-default-rtdb.asia-southeast1.firebasedatabase.app",
     projectId: "food-ordering-app-3932e",
     storageBucket: "food-ordering-app-3932e.appspot.com",
     messagingSenderId: "98716952915",
