@@ -500,3 +500,4 @@ function updateCartDisplay() {
 // $(".orderNowBtn").click(function () {
 //   onOrderNow();
 // });
+}};
