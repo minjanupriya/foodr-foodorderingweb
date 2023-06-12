@@ -550,6 +550,7 @@
   const quantity = document.createElement('span');
   quantity.classList.add('quantity');
   quantity.textContent = '0';
+  quantity.id = 'quantity-' + menuItem.Name.replace(/[^a-zA-Z0-9]/g, '-');
 
   const plusBtn = document.createElement('span');
   plusBtn.classList.add('menuBtn', 'plus');
