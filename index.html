@@ -626,6 +626,8 @@
   foodItem.appendChild(addCol);
 
   return foodItem;
+             menuBtn(); // Call the menuBtn function
+ToCart(); // Call the ToCart function
 };
 
           const renderSteamedMomos = (menuItems) => {
@@ -739,8 +741,7 @@
     .catch((error) => {
       console.error('Error retrieving menuItems:', error);
     });
-          menuBtn(); // Call the menuBtn function
-ToCart(); // Call the ToCart function
+         
 
 </script>
 
