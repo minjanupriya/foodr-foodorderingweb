@@ -209,6 +209,63 @@
                 <button type="button" class="btn btn-secondary" id="processPayment()">
                   Order Now
                 </button>
+
+                <script type="module">
+                  import { db } from './firebase-configure.js';
+                  import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore.js";
+                
+                
+                
+                  function processPayment() {
+                    const orderID = generateOrderID(); 
+                    const paymentStatus = "Pending"; 
+                    const paymentMethod = "Google Pay"; 
+                
+                    
+                    const cartItems = document.querySelectorAll('.cartItem');
+                
+                    
+                    const orderDetails = [];
+                
+                    
+                    cartItems.forEach((item) => {
+                      const foodName = item.querySelector('.cartItemName').innerText;
+                      const quantity = parseInt(item.querySelector('.cartItemQuantity').innerText);
+                      const amount = parseFloat(item.querySelector('.cartItemAmount').innerText);
+                
+                     
+                      const orderItem = {
+                        foodName,
+                        quantity,
+                        amount
+                      };
+                
+                    
+                      orderDetails.push(orderItem);
+                    });
+                
+                    
+                    const orderData = {
+                      orderID,
+                      paymentStatus,
+                      paymentMethod,
+                      orderDetails
+                    };
+                
+                   
+                    addDoc(collection(db, "orders"), orderData)
+                      .then((docRef) => {
+                        console.log("Order added with ID: ", docRef.id);
+                        
+                      })
+                      .catch((error) => {
+                        console.error("Error adding order: ", error);
+                      });
+                  }
+                
+                  // ...existing code...
+                </script>
+                
                 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
                 <!-- <script>
