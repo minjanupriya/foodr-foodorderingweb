@@ -1,6 +1,6 @@
 
-import { initializeApp } from "http://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
-import { getFirestore} from "http://www.gstatic.com/firebasejs/9.0.2/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
+import { getFirestore} from "https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore.js";
 const  firebaseConfig = {
     apiKey: "AIzaSyDwEgxrgaileQSnclPFOXFCghS4wJjBEQk",
     authDomain: "food-ordering-app-3932e.firebaseapp.com",
