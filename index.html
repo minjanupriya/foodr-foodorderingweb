@@ -741,7 +741,62 @@ ToCart(); // Call the ToCart function
     .catch((error) => {
       console.error('Error retrieving menuItems:', error);
     });
-         
+     
+    
+    function addToCart(foodNameClicked, foodQuantity, isVeg, singleFoodAmount) {
+  let foodAlreadyThere = false;
+  let foodPos;
+  let node;
+  if (isVeg) {
+    node = '<img class="vegIcon" src="./images/veg.webp" alt="" />';
+  } else {
+    node = '<img class="nonVegIcon" src="./images/non-veg.webp" alt="" />';
+  }
+  for (var i = 0; i < food.length; i++) {
+    if (food[i][0] === foodNameClicked) {
+      foodAlreadyThere = true;
+      foodPos = i;
+      break;
+    } else {
+      foodAlreadyThere = false;
+    }
+  }
+
+  if (foodAlreadyThere) {
+    food.splice(foodPos, 1);
+    food.push([foodNameClicked, foodQuantity, singleFoodAmount, node]);
+  } else {
+    food.push([foodNameClicked, foodQuantity, singleFoodAmount, node]);
+  }
+
+  // Remove Food items with quantity = 0
+  for (var i = 0; i < food.length; i++) {
+    if (food[i][1] === 0) {
+      food.splice(i, 1);
+    }
+  }
+
+  updateCartDisplay(); // Update the cart display
+
+  $(".shoppingCartAfter").text(food.length);
+
+  if (food.length === 0) {
+    totalAmount = 0;
+  } else {
+    totalAmount = totalAmount + singleFoodAmount;
+  }
+
+  $(".totalAmountDiv").empty();
+  $(".totalAmountDiv").append(
+    '<span class="totalAmountText">TOTAL AMOUNT : </span><br/>' +
+    '<i class="fas fa-rupee-sign"></i> ' +
+    totalAmount
+  );
+  
+  // Show a success message or perform any other action after adding to cart
+  alert(foodNameClicked + " added to cart!");
+}
+
 
 </script>
 
