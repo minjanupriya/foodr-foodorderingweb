@@ -513,6 +513,65 @@
           const createMenuItemElement = (menuItem) => {
   const foodItem = document.createElement('div');
   foodItem.classList.add('row', 'foodItem');
+   
+ //ToCart function
+  function ToCart(foodNameClicked, quantityElement, isVeg, singleFoodAmount) {
+  let count = Number(quantityElement.textContent);
+
+  // Add your desired functionality or action here
+  // For example, you can update the cart data structure or perform any other logic
+
+  // Update the cart display based on the updated cart data
+  if (food.length !== 0) {
+    $(".shoppingCart").addClass("shoppingCartWithItems");
+
+    $(".cartContentDiv").empty();
+    for (var i = 0; i < food.length; i++) {
+      // Generate the cart item HTML based on the updated cart data
+      let cartTxt = `<div class="row cartContentRow">
+                        <div class="col-10">
+                          <div style="display:flex;">
+                            <p>${food[i][0]}</p>
+                            <p class="text-muted-small">${food[i][3]}</p>
+                          </div>
+                          <i class="fas fa-rupee-sign">${food[i][2]}</i>
+                        </div>
+                        <div class="col-2">
+                          <p class="text-muted-small">
+                            <i class="fas fa-rupee-sign"></i> ${food[i][1] * food[i][2]}
+                          </p>
+                          <span class="cartQuantity">
+                            <span> Qty : </span> ${food[i][1]}
+                          </span>
+                        </div>
+                      </div>
+                      <hr class="cartHr">`;
+
+      $(".cartContentDiv").append(cartTxt);
+    }
+  } else {
+    $(".shoppingCart").removeClass("shoppingCartWithItems");
+
+    $(".cartContentDiv").empty();
+    $(".cartContentDiv").append('<h1 class="text-muted">Your Cart is Empty</h1>');
+  }
+
+  $(".shoppingCartAfter").text(food.length);
+
+  // Update the total amount based on the updated cart data
+  if (food.length === 0) {
+    totalAmount = 0;
+  } else {
+    totalAmount = totalAmount + singleFoodAmount;
+  }
+
+  $(".totalAmountDiv").empty();
+  $(".totalAmountDiv").append(
+    `<span class="totalAmountText">TOTAL AMOUNT :</span><br/>
+     <i class="fas fa-rupee-sign"></i> ${totalAmount}`
+  );
+}
+//code for function ToCart
 
   const foodItemName = document.createElement('div');
   foodItemName.classList.add('col-9', 'foodItemName');
@@ -539,13 +598,12 @@
   minusBtn.classList.add('menuBtn', 'minus');
   minusBtn.innerHTML = `<i class="fas fa-minus"></i>`;
   minusBtn.onclick = () => {
-    // Add your desired functionality or action here
-    // For example, you can decrement the quantity or perform any other logic
-    let currentQuantity = parseInt(quantity.textContent);
-    if (currentQuantity > 0) {
-      quantity.textContent = currentQuantity - 1;
-    }
-  };
+  let currentQuantity = parseInt(quantity.textContent);
+  if (currentQuantity > 0) {
+    quantity.textContent = currentQuantity - 1;
+    ToCart(itemName.textContent, quantity, isVeg, menuItem.Price);
+  }
+};
 
   const quantity = document.createElement('span');
   quantity.classList.add('quantity');
@@ -556,10 +614,9 @@
   plusBtn.classList.add('menuBtn', 'plus');
   plusBtn.innerHTML = `<i class="fas fa-plus"></i>`;
   plusBtn.onclick = () => {
-    // Add your desired functionality or action here
-    // For example, you can increment the quantity or perform any other logic
-    quantity.textContent = parseInt(quantity.textContent) + 1;
-  };
+  quantity.textContent = parseInt(quantity.textContent) + 1;
+  ToCart(itemName.textContent, quantity, isVeg, menuItem.Price);
+};
 
   addCol.appendChild(minusBtn);
   addCol.appendChild(quantity);
