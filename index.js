@@ -151,59 +151,86 @@ $(document).ready(function () {
   });
   
   function ToCart(foodNameClicked, foodQuantity, isVeg, singleFoodAmount) {
-    let foodAlreadyThere = false;
-    let foodPos;
-    let node;
-    if (isVeg) {
-      node = '<img class="vegIcon" src="./images/veg.webp" alt="" />';
+  let foodAlreadyThere = false;
+  let foodPos;
+  let node;
+  if (isVeg) {
+    node = '<img class="vegIcon" src="./images/veg.webp" alt="" />';
+  } else {
+    node = '<img class="nonVegIcon" src="./images/non-veg.webp" alt="" />';
+  }
+  for (var i = 0; i < food.length; i++) {
+    if (food[i][0] === foodNameClicked) {
+      foodAlreadyThere = true;
+      foodPos = i;
+      break;
     } else {
-      node = '<img class="nonVegIcon" src="./images/non-veg.webp" alt="" />';
+      foodAlreadyThere = false;
     }
-    for (var i = 0; i < food.length; i++) {
-      if (food[i][0] === foodNameClicked) {
-        foodAlreadyThere = true;
-        foodPos = i;
-        break;
-      } else {
-        foodAlreadyThere = false;
-      }
+  }
+
+  if (foodAlreadyThere) {
+    food.splice(foodPos, 1);
+    food.push([foodNameClicked, foodQuantity, singleFoodAmount, node]);
+  } else {
+    food.push([foodNameClicked, foodQuantity, singleFoodAmount, node]);
+  }
+
+  // Remove Food items with quantity = 0
+  for (var i = 0; i < food.length; i++) {
+    if (food[i][1] === 0) {
+      food.splice(i, 1);
     }
-  
-    if (foodAlreadyThere) {
-      food.splice(foodPos, 1);
-      food.push([foodNameClicked, foodQuantity, singleFoodAmount, node]);
-    } else {
-      food.push([foodNameClicked, foodQuantity, singleFoodAmount, node]);
-    }
-  
-    // Remove Food items with quantity = 0
-    for (var i = 0; i < food.length; i++) {
-      if (food[i][1] === 0) {
-        food.splice(i, 1);
-      }
-    }
-  
-    updateCartDisplay(); // Update the cart display
-  
-    $(".shoppingCartAfter").text(food.length);
-  
-    if (food.length === 0) {
-      totalAmount = 0;
-    } else {
-      totalAmount = totalAmount + singleFoodAmount;
-    }
-  
-    $(".totalAmountDiv").empty();
-    $(".totalAmountDiv").append(
-      '<span class="totalAmountText">TOTAL AMOUNT : </span><br/>' +
+  }
+
+  updateCartDisplay(); // Update the cart display
+
+  $(".shoppingCartAfter").text(food.length);
+
+  if (food.length === 0) {
+    totalAmount = 0;
+  } else {
+    totalAmount = totalAmount + singleFoodAmount;
+  }
+
+  $(".totalAmountDiv").empty();
+  $(".totalAmountDiv").append(
+    '<span class="totalAmountText">TOTAL AMOUNT : </span><br/>' +
       '<i class="fas fa-rupee-sign"></i> ' +
       totalAmount
+  );
+}
+
+function updateCartDisplay() {
+  if (food.length !== 0) {
+    $(".shoppingCart").addClass("shoppingCartWithItems");
+
+    $(".cartContentDiv").empty();
+    for (var i = 0; i < food.length; i++) {
+      let cartTxt =
+        '<div class="row cartContentRow"><div class="col-10"><div style="display:flex;"><p>' +
+        food[i][0] +
+        '</p> <p class="text-muted-small">' +
+        food[i][3] +
+        '<p></div><i class="fas fa-rupee-sign"> ' +
+        food[i][2] +
+        '</i></p>  </div>  <div class="col-2"> <p class="text-muted-small" > <i class="fas fa-rupee-sign"></i> ' +
+        food[i][1] * food[i][2] +
+        '</p>  <span class="cartQuantity"> ' +
+        " <span> Qty : </span>" +
+        food[i][1] +
+        '</span> </div>  </div> <hr class="cartHr">';
+      $(".cartContentDiv").append(cartTxt);
+    }
+  } else {
+    $(".shoppingCart").removeClass("shoppingCartWithItems");
+
+    $(".cartContentDiv").empty();
+    $(".cartContentDiv").append(
+      '<h1 class="text-muted">Your Cart is Empty</h1>'
     );
-    
-    // Show a success message or perform any other action after adding to cart
-    alert(foodNameClicked + " added to cart!");
   }
-  
+}
 
 
 //   function ToCart(foodNameClicked, foodQuantity, isVeg, singleFoodAmount) {
