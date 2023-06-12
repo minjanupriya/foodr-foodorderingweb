@@ -22,8 +22,8 @@
     rel="stylesheet" />
 
   <!-- CDN FONTS  -->
-  <link href="https://fonts.cdnfonts.com/css/elinga" rel="stylesheet" />
-
+<!--   <link href="https://fonts.cdnfonts.com/css/elinga" rel="stylesheet" />
+ -->
   <!-- FONTAWESOME -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
     integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous" />
@@ -61,7 +61,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link px-3" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link px-3" href="#">Home123<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <center><a class="nav-link px-4" href="#categorySection">Categories</a></center>
@@ -172,11 +172,11 @@
                       Select Menu
                     </div>
 
-                    <div class="col paymentInfo">
+<!--                     <div class="col paymentInfo">
                       <span class="checkIcon"><i class="fa-brands fa-google-pay"></i>
                       </span>
                       Pay using Google Pay.
-                    </div>
+                    </div> -->
                   </div>
 
                   <hr class="cartHr" />
@@ -253,7 +253,7 @@
                   }
 
                 </script> -->
-
+                <script>
                 function processPayment() {
 
                         <!-- // Perform necessary payment processing logic here
@@ -272,7 +272,7 @@
                 
                         // 3. Handle the API response and provide feedback to the user
                 
-                        Redirect to the checkout page after processing the payment -->
+//                         Redirect to the checkout page after processing the payment -->
                         window.location.href = "checkout.html";
                     }
                 </script> 
@@ -511,77 +511,125 @@
 
           // Function to create HTML elements for each menu item
           const createMenuItemElement = (menuItem) => {
-            const foodItem = document.createElement('div');
-            foodItem.classList.add('row', 'foodItem');
+  const foodItem = document.createElement('div');
+  foodItem.classList.add('row', 'foodItem');
+   
+//  //ToCart function
+  function ToCart(foodNameClicked, quantityElement, isVeg, singleFoodAmount) {
+  let count = Number(quantityElement.textContent);
 
-            const foodItemName = document.createElement('div');
-            foodItemName.classList.add('col-9', 'foodItemName');
-
-            const itemName = document.createElement('p');
-            itemName.textContent = menuItem.Name;
-
-            const vegIcon = document.createElement('span');
-            vegIcon.innerHTML = `<img class="vegIcon" src="./images/veg.webp" alt="veg-icon" />`;
-
-            foodItemName.appendChild(itemName);
-            foodItemName.appendChild(vegIcon);
-
-            const price = document.createElement('p');
-            price.classList.add('text-muted-small');
-            price.innerHTML = `<i class="fas fa-rupee-sign"></i>${menuItem.Price}`;
-
-            foodItemName.appendChild(price);
-
-            const addCol = document.createElement('div');
-addCol.classList.add('col-3', 'addCol');
-
-const minusBtn = document.createElement('span');
-minusBtn.classList.add('menuBtn', 'minus');
-minusBtn.innerHTML = `<i class="fas fa-minus"></i>`;
-minusBtn.onclick = () => {
   // Add your desired functionality or action here
-  // For example, you can decrement the quantity or perform any other logic
+  // For example, you can update the cart data structure or perform any other logic
+
+  // Update the cart display based on the updated cart data
+  if (food.length !== 0) {
+    $(".shoppingCart").addClass("shoppingCartWithItems");
+
+    $(".cartContentDiv").empty();
+    for (var i = 0; i < food.length; i++) {
+      // Generate the cart item HTML based on the updated cart data
+      let cartTxt = `<div class="row cartContentRow">
+                        <div class="col-10">
+                          <div style="display:flex;">
+                            <p>${food[i][0]}</p>
+                            <p class="text-muted-small">${food[i][3]}</p>
+                          </div>
+                          <i class="fas fa-rupee-sign">${food[i][2]}</i>
+                        </div>
+                        <div class="col-2">
+                          <p class="text-muted-small">
+                            <i class="fas fa-rupee-sign"></i> ${food[i][1] * food[i][2]}
+                          </p>
+                          <span class="cartQuantity">
+                            <span> Qty : </span> ${food[i][1]}
+                          </span>
+                        </div>
+                      </div>
+                      <hr class="cartHr">`;
+
+      $(".cartContentDiv").append(cartTxt);
+    }
+  } else {
+    $(".shoppingCart").removeClass("shoppingCartWithItems");
+
+    $(".cartContentDiv").empty();
+    $(".cartContentDiv").append('<h1 class="text-muted">Your Cart is Empty</h1>');
+  }
+
+  $(".shoppingCartAfter").text(food.length);
+
+  // Update the total amount based on the updated cart data
+  if (food.length === 0) {
+    totalAmount = 0;
+  } else {
+    totalAmount = totalAmount + singleFoodAmount;
+  }
+
+  $(".totalAmountDiv").empty();
+  $(".totalAmountDiv").append(
+    `<span class="totalAmountText">TOTAL AMOUNT :</span><br/>
+     <i class="fas fa-rupee-sign"></i> ${totalAmount}`
+  );
+}
+//code for function ToCart
+
+  const foodItemName = document.createElement('div');
+  foodItemName.classList.add('col-9', 'foodItemName');
+
+  const itemName = document.createElement('p');
+  itemName.textContent = menuItem.Name;
+
+  const vegIcon = document.createElement('span');
+  vegIcon.innerHTML = `<img class="vegIcon" src="./images/veg.webp" alt="veg-icon" />`;
+
+  foodItemName.appendChild(itemName);
+  foodItemName.appendChild(vegIcon);
+
+  const price = document.createElement('p');
+  price.classList.add('text-muted-small');
+  price.innerHTML = `<i class="fas fa-rupee-sign"></i>${menuItem.Price}`;
+
+  foodItemName.appendChild(price);
+
+  const addCol = document.createElement('div');
+  addCol.classList.add('col-3', 'addCol');
+
+  const minusBtn = document.createElement('span');
+  minusBtn.classList.add('menuBtn', 'minus');
+  minusBtn.innerHTML = `<i class="fas fa-minus"></i>`;
+  minusBtn.onclick = () => {
   let currentQuantity = parseInt(quantity.textContent);
   if (currentQuantity > 0) {
     quantity.textContent = currentQuantity - 1;
+    ToCart(itemName.textContent, quantity, isVeg, menuItem.Price);
   }
 };
 
-const quantity = document.createElement('span');
-quantity.classList.add('quantity');
-quantity.textContent = '0';
+  const quantity = document.createElement('span');
+  quantity.classList.add('quantity');
+  quantity.textContent = '0';
+  quantity.id = 'quantity-' + menuItem.Name.replace(/[^a-zA-Z0-9]/g, '-');
 
-const plusBtn = document.createElement('span');
-plusBtn.classList.add('menuBtn', 'plus');
-plusBtn.innerHTML = `<i class="fas fa-plus"></i>`;
-plusBtn.onclick = () => {
-  // Add your desired functionality or action here
-  // For example, you can increment the quantity or perform any other logic
+  const plusBtn = document.createElement('span');
+  plusBtn.classList.add('menuBtn', 'plus');
+  plusBtn.innerHTML = `<i class="fas fa-plus"></i>`;
+  plusBtn.onclick = () => {
   quantity.textContent = parseInt(quantity.textContent) + 1;
+  ToCart(itemName.textContent, quantity, isVeg, menuItem.Price);
 };
 
-const additionalDiv = document.createElement('div');
-additionalDiv.classList.add('col-3', 'addCol');
-additionalDiv.innerHTML = `
-  <span class="menuBtn minus">
-    <i class="fas fa-minus"></i>
-  </span>
-  <span class="quantity">0</span>
-  <span class="menuBtn plus">
-    <i class="fas fa-plus"></i>
-  </span>
-`;
+  addCol.appendChild(minusBtn);
+  addCol.appendChild(quantity);
+  addCol.appendChild(plusBtn);
 
-addCol.appendChild(minusBtn);
-addCol.appendChild(quantity);
-addCol.appendChild(plusBtn);
+  foodItem.appendChild(foodItemName);
+  foodItem.appendChild(addCol);
 
-foodItem.appendChild(foodItemName);
-foodItem.appendChild(additionalDiv);
+  return foodItem;
+             menuBtn(); // Call the menuBtn function
+ToCart(); // Call the ToCart function
+};
 
-return foodItem;
-
-          };
           const renderSteamedMomos = (menuItems) => {
             const steamedMomo = document.getElementById('steamedMomo');
 
@@ -693,10 +741,12 @@ return foodItem;
     .catch((error) => {
       console.error('Error retrieving menuItems:', error);
     });
+         
+
 </script>
 
          
-        <!-- <div id="momos">
+<!--          <div id="momos">
             <div class="row menuHeading">
               <div class="col-12">
                 <h1>Momos</h1>
@@ -1162,9 +1212,10 @@ return foodItem;
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
 
-            <div class="row checkOutRow">
+
+            <!-- <div class="row checkOutRow">
               <button
                 type="button"
                 class="btn knowMoreBtn"

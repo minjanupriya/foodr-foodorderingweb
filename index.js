@@ -149,85 +149,168 @@ $(document).ready(function () {
       }
     }
   });
-
+  
   function ToCart(foodNameClicked, foodQuantity, isVeg, singleFoodAmount) {
-    let foodAlreadyThere = false;
-    let foodPos;
-    let node;
-    if (isVeg) {
-      node = '<img class="vegIcon" src="./images/veg.webp" alt="" />';
+  let foodAlreadyThere = false;
+  let foodPos;
+  let node;
+  if (isVeg) {
+    node = '<img class="vegIcon" src="./images/veg.webp" alt="" />';
+  } else {
+    node = '<img class="nonVegIcon" src="./images/non-veg.webp" alt="" />';
+  }
+  for (var i = 0; i < food.length; i++) {
+    if (food[i][0] === foodNameClicked) {
+      foodAlreadyThere = true;
+      foodPos = i;
+      break;
     } else {
-      node = '<img class="nonVegIcon" src="./images/non-veg.webp" alt="" />';
+      foodAlreadyThere = false;
     }
+  }
+
+  if (foodAlreadyThere) {
+    food.splice(foodPos, 1);
+    food.push([foodNameClicked, foodQuantity, singleFoodAmount, node]);
+  } else {
+    food.push([foodNameClicked, foodQuantity, singleFoodAmount, node]);
+  }
+
+  // Remove Food items with quantity = 0
+  for (var i = 0; i < food.length; i++) {
+    if (food[i][1] === 0) {
+      food.splice(i, 1);
+    }
+  }
+
+  updateCartDisplay(); // Update the cart display
+
+  $(".shoppingCartAfter").text(food.length);
+
+  if (food.length === 0) {
+    totalAmount = 0;
+  } else {
+    totalAmount = totalAmount + singleFoodAmount;
+  }
+
+  $(".totalAmountDiv").empty();
+  $(".totalAmountDiv").append(
+    '<span class="totalAmountText">TOTAL AMOUNT : </span><br/>' +
+      '<i class="fas fa-rupee-sign"></i> ' +
+      totalAmount
+  );
+}
+
+function updateCartDisplay() {
+  if (food.length !== 0) {
+    $(".shoppingCart").addClass("shoppingCartWithItems");
+
+    $(".cartContentDiv").empty();
     for (var i = 0; i < food.length; i++) {
-      if (food[i][0] === foodNameClicked) {
-        foodAlreadyThere = true;
-        foodPos = i;
-        break;
-      } else {
-        foodAlreadyThere = false;
-      }
+      let cartTxt =
+        '<div class="row cartContentRow"><div class="col-10"><div style="display:flex;"><p>' +
+        food[i][0] +
+        '</p> <p class="text-muted-small">' +
+        food[i][3] +
+        '<p></div><i class="fas fa-rupee-sign"> ' +
+        food[i][2] +
+        '</i></p>  </div>  <div class="col-2"> <p class="text-muted-small" > <i class="fas fa-rupee-sign"></i> ' +
+        food[i][1] * food[i][2] +
+        '</p>  <span class="cartQuantity"> ' +
+        " <span> Qty : </span>" +
+        food[i][1] +
+        '</span> </div>  </div> <hr class="cartHr">';
+      $(".cartContentDiv").append(cartTxt);
     }
+  } else {
+    $(".shoppingCart").removeClass("shoppingCartWithItems");
 
-    if (foodAlreadyThere) {
-      food.splice(foodPos, 1);
-      food.push([foodNameClicked, foodQuantity, singleFoodAmount, node]);
-    } else {
-      food.push([foodNameClicked, foodQuantity, singleFoodAmount, node]);
-    }
-
-    // Remove Food items with quantity = 0
-    for (var i = 0; i < food.length; i++) {
-      if (food[i][1] === 0) {
-        food.splice(i, 1);
-      }
-    }
-
-    if (food.length !== 0) {
-      $(".shoppingCart").addClass("shoppingCartWithItems");
-
-      $(".cartContentDiv").empty();
-      for (var i = 0; i < food.length; i++) {
-        let cartTxt =
-          '<div class="row cartContentRow"><div class="col-10"><div style="display:flex;"><p>' +
-          food[i][0] +
-          '</p> <p class="text-muted-small">' +
-          food[i][3] +
-          '<p></div><i class="fas fa-rupee-sign"> ' +
-          food[i][2] +
-          '</i></p>  </div>  <div class="col-2"> <p class="text-muted-small" > <i class="fas fa-rupee-sign"></i> ' +
-          food[i][1] * food[i][2] +
-          '</p>  <span class="cartQuantity"> ' +
-          " <span> Qty : </span>" +
-          food[i][1] +
-          '</span> </div>  </div> <hr class="cartHr">';
-        $(".cartContentDiv").append(cartTxt);
-      }
-    } else {
-      $(".shoppingCart").removeClass("shoppingCartWithItems");
-
-      $(".cartContentDiv").empty();
-      $(".cartContentDiv").append(
-        '<h1 class="text-muted">Your Cart is Empty</h1>'
-      );
-    }
-
-    $(".shoppingCartAfter").text(food.length);
-
-    if (food.length === 0) {
-      totalAmount = 0;
-    } else {
-      totalAmount = totalAmount + singleFoodAmount;
-    }
-
-    $(".totalAmountDiv").empty();
-    $(".totalAmountDiv").append(
-      '<span class="totalAmountText">TOTAL AMOUNT : </span><br/>' +
-        '<i class="fas fa-rupee-sign"></i> ' +
-        totalAmount
+    $(".cartContentDiv").empty();
+    $(".cartContentDiv").append(
+      '<h1 class="text-muted">Your Cart is Empty</h1>'
     );
   }
-});
+}
+
+
+//   function ToCart(foodNameClicked, foodQuantity, isVeg, singleFoodAmount) {
+//     let foodAlreadyThere = false;
+//     let foodPos;
+//     let node;
+//     if (isVeg) {
+//       node = '<img class="vegIcon" src="./images/veg.webp" alt="" />';
+//     } else {
+//       node = '<img class="nonVegIcon" src="./images/non-veg.webp" alt="" />';
+//     }
+//     for (var i = 0; i < food.length; i++) {
+//       if (food[i][0] === foodNameClicked) {
+//         foodAlreadyThere = true;
+//         foodPos = i;
+//         break;
+//       } else {
+//         foodAlreadyThere = false;
+//       }
+//     }
+
+//     if (foodAlreadyThere) {
+//       food.splice(foodPos, 1);
+//       food.push([foodNameClicked, foodQuantity, singleFoodAmount, node]);
+//     } else {
+//       food.push([foodNameClicked, foodQuantity, singleFoodAmount, node]);
+//     }
+
+//     // Remove Food items with quantity = 0
+//     for (var i = 0; i < food.length; i++) {
+//       if (food[i][1] === 0) {
+//         food.splice(i, 1);
+//       }
+//     }
+
+//     if (food.length !== 0) {
+//       $(".shoppingCart").addClass("shoppingCartWithItems");
+
+//       $(".cartContentDiv").empty();
+//       for (var i = 0; i < food.length; i++) {
+//         let cartTxt =
+//           '<div class="row cartContentRow"><div class="col-10"><div style="display:flex;"><p>' +
+//           food[i][0] +
+//           '</p> <p class="text-muted-small">' +
+//           food[i][3] +
+//           '<p></div><i class="fas fa-rupee-sign"> ' +
+//           food[i][2] +
+//           '</i></p>  </div>  <div class="col-2"> <p class="text-muted-small" > <i class="fas fa-rupee-sign"></i> ' +
+//           food[i][1] * food[i][2] +
+//           '</p>  <span class="cartQuantity"> ' +
+//           " <span> Qty : </span>" +
+//           food[i][1] +
+//           '</span> </div>  </div> <hr class="cartHr">';
+//         $(".cartContentDiv").append(cartTxt);
+//       }
+//     } else {
+//       $(".shoppingCart").removeClass("shoppingCartWithItems");
+
+//       $(".cartContentDiv").empty();
+//       $(".cartContentDiv").append(
+//         '<h1 class="text-muted">Your Cart is Empty</h1>'
+//       );
+//     }
+
+//     $(".shoppingCartAfter").text(food.length);
+
+//     if (food.length === 0) {
+//       totalAmount = 0;
+//     } else {
+//       totalAmount = totalAmount + singleFoodAmount;
+//     }
+
+//     $(".totalAmountDiv").empty();
+//     $(".totalAmountDiv").append(
+//       '<span class="totalAmountText">TOTAL AMOUNT : </span><br/>' +
+//         '<i class="fas fa-rupee-sign"></i> ' +
+//         totalAmount
+//     );
+//   }
+// });
 
 //function openWhatsapp() {
   // console.log($('#address'));
@@ -322,98 +405,99 @@ $(document).ready(function () {
 
 
 /** Launches payment request flow when user taps on buy button. */
-function onOrderNow() {
-  if (!window.PaymentRequest) {
-    console.log('Web payments are not supported in this browser.');
-    return;
-  }
+// function onOrderNow() {
+//   if (!window.PaymentRequest) {
+//     console.log('Web payments are not supported in this browser.');
+//     return;
+//   }
 
-  // Create supported payment method.
-  const supportedInstruments = [
-    {
-      supportedMethods: ['https://tez.google.com/pay'],
-      data: {
-        pa: 'merchant-vpa@xxx',
-        pn: 'Merchant Name',
-        tr: '1234ABCD',  // Your custom transaction reference ID
-        url: 'https://url/of/the/order/in/your/website',
-        mc: '1234', //Your merchant category code
-        tn: 'Purchase in Merchant',
-      },
-    }
-  ];
+//   // Create supported payment method.
+//   const supportedInstruments = [
+//     {
+//       supportedMethods: ['https://tez.google.com/pay'],
+//       data: {
+//         pa: 'merchant-vpa@xxx',
+//         pn: 'Merchant Name',
+//         tr: '1234ABCD',  // Your custom transaction reference ID
+//         url: 'https://url/of/the/order/in/your/website',
+//         mc: '1234', //Your merchant category code
+//         tn: 'Purchase in Merchant',
+//       },
+//     }
+//   ];
 
-  // Create order detail data.
-  const details = {
-    total: {
-      label: 'Total',
-      amount: {
-        currency: 'INR',
-        value: '10.01', // sample amount
-      },
-    },
-    displayItems: [{
-      label: 'Original Amount',
-      amount: {
-        currency: 'INR',
-        value: '10.01',
-      },
-    }],
-  };
+//   // Create order detail data.
+//   const details = {
+//     total: {
+//       label: 'Total',
+//       amount: {
+//         currency: 'INR',
+//         value: '10.01', // sample amount
+//       },
+//     },
+//     displayItems: [{
+//       label: 'Original Amount',
+//       amount: {
+//         currency: 'INR',
+//         value: '10.01',
+//       },
+//     }],
+//   };
 
-  // Create payment request object.
-  let request = null;
-  try {
-    request = new PaymentRequest(supportedInstruments, details);
-  } catch (e) {
-    console.log('Payment Request Error: ' + e.message);
-    return;
-  }
-  if (!request) {
-    console.log('Web payments are not supported in this browser.');
-    return;
-  }
+//   // Create payment request object.
+//   let request = null;
+//   try {
+//     request = new PaymentRequest(supportedInstruments, details);
+//   } catch (e) {
+//     console.log('Payment Request Error: ' + e.message);
+//     return;
+//   }
+//   if (!request) {
+//     console.log('Web payments are not supported in this browser.');
+//     return;
+//   }
 
-  var canMakePaymentPromise = checkCanMakePayment(request);
-  canMakePaymentPromise
-    .then((result) => {
-      showPaymentUI(request, result);
-    })
-    .catch((err) => {
-      console.log('Error calling checkCanMakePayment: ' + err);
-    });
-}
+//   var canMakePaymentPromise = checkCanMakePayment(request);
+//   canMakePaymentPromise
+//     .then((result) => {
+//       showPaymentUI(request, result);
+//     })
+//     .catch((err) => {
+//       console.log('Error calling checkCanMakePayment: ' + err);
+//     });
+// }
 
-// Show the payment request UI.
-function showPaymentUI(request, canMakePayment) {
-  if (!canMakePayment) {
-    handleNotReadyToPay();
-    return;
-  }
+// // Show the payment request UI.
+// function showPaymentUI(request, canMakePayment) {
+//   if (!canMakePayment) {
+//     handleNotReadyToPay();
+//     return;
+//   }
 
-  // Set payment timeout.
-  let paymentTimeout = window.setTimeout(function() {
-    window.clearTimeout(paymentTimeout);
-    request.abort()
-      .then(function() {
-        console.log('Payment timed out after 20 minutes.');
-      })
-      .catch(function() {
-        console.log('Unable to abort, user is in the process of paying.');
-      });
-  }, 20 * 60 * 1000); /* 20 minutes */
+//   // Set payment timeout.
+//   let paymentTimeout = window.setTimeout(function() {
+//     window.clearTimeout(paymentTimeout);
+//     request.abort()
+//       .then(function() {
+//         console.log('Payment timed out after 20 minutes.');
+//       })
+//       .catch(function() {
+//         console.log('Unable to abort, user is in the process of paying.');
+//       });
+//   }, 20 * 60 * 1000); /* 20 minutes */
 
-  request.show()
-    .then(function(instrument) {
-      window.clearTimeout(paymentTimeout);
-      processResponse(instrument); // Handle response from browser.
-    })
-    .catch(function(err) {
-      console.log(err);
-    });
-}
+//   request.show()
+//     .then(function(instrument) {
+//       window.clearTimeout(paymentTimeout);
+//       processResponse(instrument); // Handle response from browser.
+//     })
+//     .catch(function(err) {
+//       console.log(err);
+//     });
+// }
 
-// Attach the onOrderNow function to the "Order Now" button click event
-$(".orderNowBtn").click(function () {
-  onOrderNow();
-});
+// // Attach the onOrderNow function to the "Order Now" button click event
+// $(".orderNowBtn").click(function () {
+//   onOrderNow();
+// });
+};
